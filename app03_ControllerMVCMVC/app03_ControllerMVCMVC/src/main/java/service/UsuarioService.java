@@ -33,11 +33,7 @@ public class UsuarioService {
     }
     
     public String determinarRotaPorPerfil(String perfil) {
-        return switch (perfil) {
-            case "admin" -> "Administrador";
-            case "user" -> "Usuario";
-            default -> "home";
-        };
+       return "home";
     }
     
     public void registrarNovoUsuario(Usuario usuario) {

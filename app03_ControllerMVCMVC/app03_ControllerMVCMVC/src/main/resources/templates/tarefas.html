@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Lista de Tarefas</title>
-	
+	<link rel="stylesheet" href="/style.css">
     <meta charset="UTF-8">
 </head>
 <body>
@@ -12,7 +12,15 @@
         <input type="text" name="descricao" placeholder="Nova tarefa" required>
         <button type="submit">Adicionar</button>
     </form>
-
+	
+	<ul>
+	<li> 
+		<h3> Nome </h3>
+		<h3> Data começo </h3> 
+		<h3> Status </h3>
+		<h3> Status Finalização </h3>
+		
+	</ul>	
     <ul>
         <li th:each="tarefa, iterStat : ${tarefas}">
             <span th:text="${tarefa.descricao}"></span> - 

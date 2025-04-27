@@ -34,7 +34,9 @@ public class UsuarioController {
         if (usuarioEncontrado.isPresent()) {
             Usuario usuario = usuarioEncontrado.get();
             sessao.setAttribute("usuarioLogado", usuario);
-            return usuarioService.determinarRotaPorPerfil(usuario.getPerfil());
+            modelo.addAttribute("usuarioLogado", usuario);
+          //  return usuarioService.determinarRotaPorPerfil(usuario.getPerfil());
+        	return "home";
         }
         
         modelo.addAttribute("msg", "Credenciais inválidas! Tente novamente.");
