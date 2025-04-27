@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Lista de Tarefas</title>
+    <meta charset="UTF-8">
+</head>
+<body>
+    <h1>Minhas Tarefas</h1>
+
+    <form th:action="@{/tarefas/adicionar}" method="post">
+        <input type="text" name="descricao" placeholder="Nova tarefa" required>
+        <button type="submit">Adicionar</button>
+    </form>
+
+    <ul>
+        <li th:each="tarefa, iterStat : ${tarefas}">
+            <span th:text="${tarefa.descricao}"></span> - 
+            <span th:text="${tarefa.dataCriacao}"></span> - 
+            <span th:text="${tarefa.concluida ? 'Concluída' : 'Pendente'}"></span>
+            
+            <span th:if="${tarefa.concluida}">
+                (Finalizada em: <span th:text="${tarefa.dataConclusao}"></span>)
+            </span>
+
+            <form th:if="${!tarefa.concluida}" th:action="@{/tarefas/concluir/{id}(id=${iterStat.index})}" method="post" style="display:inline;">
+                <button type="submit">Concluir</button>
+            </form>
+        </li>
+    </ul>
+
+    <br>
+    <a href="/usuarios/painel">Voltar para o painel</a>
+</body>
+</html>

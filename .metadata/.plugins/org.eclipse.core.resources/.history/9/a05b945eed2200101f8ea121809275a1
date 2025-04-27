@@ -1,0 +1,73 @@
+package controller;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.ui.Model;
+import jakarta.servlet.http.HttpSession;
+import model.Usuario;
+import service.UsuarioService;
+import java.util.Optional;
+import org.springframework.beans.factory.annotation.Autowired;
+
+@Controller
+@RequestMapping("/usuarios")
+public class UsuarioController {
+    
+    private final UsuarioService usuarioService;
+    
+    @Autowired
+    public UsuarioController(UsuarioService usuarioService) {
+        this.usuarioService = usuarioService;
+    }
+    
+    @GetMapping("/login")
+    public String exibirTelaLogin() {
+        return "login.html";
+    }
+    
+    @PostMapping("/autenticar")
+    public String processarAutenticacao(@ModelAttribute Usuario candidato, Model modelo, HttpSession sessao) {
+        Optional<Usuario> usuarioEncontrado = usuarioService.autenticarUsuario(
+                candidato.getLogin(), candidato.getSenha());
+        
+        if (usuarioEncontrado.isPresent()) {
+            Usuario usuario = usuarioEncontrado.get();
+            sessao.setAttribute("usuarioLogado", usuario);
+            return usuarioService.determinarRotaPorPerfil(usuario.getPerfil());
+        }
+        
+        modelo.addAttribute("msg", "Credenciais inválidas! Tente novamente.");
+        return "login";
+    }
+    
+    @GetMapping("/painel")
+    public String acessarPainel(HttpSession sessao, Model modelo) {
+        Usuario usuarioAtual = (Usuario) sessao.getAttribute("usuarioLogado");
+        
+        if (!usuarioService.verificarSessaoValida(usuarioAtual)) {
+            modelo.addAttribute("msg", "Sua sessão expirou. Por favor, faça login novamente.");
+            return "redirect:/usuarios/login";
+        }
+        
+        modelo.addAttribute("usuarioLogado", usuarioAtual);
+        return "home";
+    }
+    
+    @GetMapping("/sair")
+    public String encerrarSessao(HttpSession sessao) {
+        sessao.invalidate();
+        return "redirect:/";
+    }
+    
+    @GetMapping("/registrar")
+    public String exibirFormularioRegistro() {
+        return "novoUsr";
+    }
+    
+    @PostMapping("/salvar")
+    public String salvarNovoUsuario(@ModelAttribute Usuario novoUsuario, Model modelo) {
+        usuarioService.registrarNovoUsuario(novoUsuario);
+        modelo.addAttribute("msg", "Cadastro realizado com sucesso! Efetue o login para continuar.");
+        return "login";
+    }
+}

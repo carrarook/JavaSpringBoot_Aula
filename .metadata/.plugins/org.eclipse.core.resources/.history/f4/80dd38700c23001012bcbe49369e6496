@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" href="../static/style.css">
+	<title>Index</title></head>
+<body>
+	
+	<h1>Módulo 02 - Controller MVC</h1>
+	<h2>Página de Abertura</h2>
+	
+    <a href="/usuarios/login">Entrar</a>
+	<br>
+    <a href="/usuarios/registrar">Novo Cadastro</a>
+</body>
+</html>

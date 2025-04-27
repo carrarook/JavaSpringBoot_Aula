@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head><title>Index</title></head>
+<body>
+	
+	<h1>Módulo 02 - Controller MVC</h1>
+	<h2>Página de Abertura</h2>
+	
+    <a href="/login">Entrarrr</a>
+	<br>
+    <a href="/novoUsr">Novo Cadastro</a>
+</body>
+</html>

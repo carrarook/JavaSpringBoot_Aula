@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html>
+<head><title>Home</title></head>
+<body>
+	<h1>Módulo 02 - Controller MVC</h1>
+    <h2>Bem-vindo</h2>
+    <p th:text="${usuarioLogado.login}"></p>
+	<a href="/tarefas">Ver Tarefas</a>
+    <a href="/usuarios/logout">Sair</a>
+</body>
+</html>

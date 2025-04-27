@@ -1,0 +1,9 @@
+package controller;
+import org.springframework.stereotype.Controller;
+@Controller
+public class TesteController {
+    @GetMapping("/teste")
+    public String teste() {
+        return "Teste";  // Deve buscar por templates/Teste.html
+    }
+}

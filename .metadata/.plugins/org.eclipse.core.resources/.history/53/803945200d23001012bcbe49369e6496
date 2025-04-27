@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" href="style.css">
+	<title>Index</title></head>
+<body>
+	
+	<h1>Projeto MVC - Java WEB</h1>
+	<h2>Home Page</h2>
+
+	<button onclick="location.href='/usuarios/login'" type="button">
+	         Entrar</button>
+	<br><br>
+	<button onclick="location.href='/usuarios/registrar'" type="button">
+		         Entrar</button>
+
+</body>
+</html>

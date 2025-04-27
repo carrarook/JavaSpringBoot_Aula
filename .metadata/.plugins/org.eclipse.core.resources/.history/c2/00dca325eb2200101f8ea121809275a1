@@ -1,0 +1,50 @@
+package service;
+
+import model.Usuario;
+import org.springframework.stereotype.Service;
+import jakarta.annotation.PostConstruct;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
+@Service
+public class UsuarioService {
+    private final List<Usuario> usuariosCadastrados = new ArrayList<>();
+    
+    @PostConstruct
+    public void inicializarDados() {
+        Usuario administrador = new Usuario();
+        administrador.setLogin("bruno");
+        administrador.setSenha("brunoSenha");
+        administrador.setNome("bruno");
+        administrador.setEmail("bruno@bruno.com");
+        administrador.setPerfil("admin");
+        usuariosCadastrados.add(administrador);
+    }
+    
+    public List<Usuario> listarTodos() {
+        return new ArrayList<>(usuariosCadastrados);
+    }
+    
+    public Optional<Usuario> autenticarUsuario(String login, String senha) {
+        return usuariosCadastrados.stream()
+                .filter(u -> u.getLogin().equalsIgnoreCase(login) && u.getSenha().equalsIgnoreCase(senha))
+                .findFirst();
+    }
+    
+    public String determinarRotaPorPerfil(String perfil) {
+        return switch (perfil) {
+            case "admin" -> "Administrador";
+            case "user" -> "Usuario";
+            default -> "home";
+        };
+    }
+    
+    public void registrarNovoUsuario(Usuario usuario) {
+        usuariosCadastrados.add(usuario);
+    }
+    
+    public boolean verificarSessaoValida(Usuario usuario) {
+        return usuario != null;
+    }
+}
